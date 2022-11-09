@@ -1,0 +1,13 @@
+<div class="card">
+    <div class="card-content">
+        <span class="card-title">
+            {{ user.first_name }} {{ user.last_name }}
+            ({{ user.username}})
+        </span>
+        {% if user == request.user %}
+        <a class="btn disabled" href="">Send Request</a>
+        {% else %}
+        <a class="btn" href="">Send Request</a>
+        {% endif %}
+    </div>
+</div>
