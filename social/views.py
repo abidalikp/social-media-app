@@ -42,6 +42,18 @@ class Post(View):
         return redirect("/profile")
 
 class Users(ListView):
-    queryset = models.User.objects.all()
     context_object_name = 'users'
     template_name = 'social/users.html'
+
+    def get_queryset(self):
+        excludeIds = [friend.person2.id for friend in models.Friend.objects.filter(person1 = self.request.user)]
+        excludeIds += [friend.person1.id for friend in models.Friend.objects.filter(person2 = self.request.user)]
+        excludeIds += [self.request.user.id]
+
+        return models.User.objects.all().exclude(id__in=excludeIds)
+
+class AddFriend(View):
+    
+    def get(self, request, pk):
+        models.Friend.objects.create(person1=request.user, person2=models.User.objects.get(pk=pk))
+        return redirect("/")

@@ -4,10 +4,6 @@
             {{ user.first_name }} {{ user.last_name }}
             ({{ user.username}})
         </span>
-        {% if user == request.user %}
-        <a class="btn disabled" href="">Send Request</a>
-        {% else %}
-        <a class="btn" href="">Send Request</a>
-        {% endif %}
+        <a class="btn" href="{% url 'addfriend' user.id %}" >Add Friend</a>
     </div>
 </div>
