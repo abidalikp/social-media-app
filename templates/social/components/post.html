@@ -10,7 +10,7 @@
         <p>{{ post.content }}</p>
     </div>
     <div class="card-action">
-        <a href="">{{ post.like_set.count }} Likes</a>
+        <a href="{% url 'postlike' post.pk %}">{{ post.like_set.count }} Likes</a>
         <a class="modal-trigger" href="#postModal{{post.id}}">{{ post.comments.count }} Comments</a>
     </div>
 </div>

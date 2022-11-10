@@ -7,7 +7,7 @@
             <div class="col s6 offset-s3">
                 <form class="card" action="" method="post">
                     <div class="card-content">
-                      <span class="card-title center-align">Login</span>
+                      <span class="card-title center-align"><h3>Login</h3></span>
                         {% csrf_token %}
                         {% for field in form %}
                         <div class="input-field grey-text">
@@ -15,9 +15,10 @@
                             {{ field }}
                         </div>
                         {% endfor %}
-                    </div>
-                    <div class="card-action center-align">
-                      <button class="btn" type="submit">Login</button>
+                        <div class="row center-align">
+                          <button class="btn" type="submit">Login</button><br><br>
+                          Not a registered user? Create <a class="teal-text" href="{% url 'signup' %}">here</a>.
+                        </div>
                     </div>
                 </form>
             </div>

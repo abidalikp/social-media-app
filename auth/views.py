@@ -28,6 +28,6 @@ class Signup(View):
             login(request, user)
             return redirect('/')
         context = {
-            'form': form 
+            'form': form
         }
         return render(request, 'auth/signup.html', context)

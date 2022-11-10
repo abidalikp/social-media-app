@@ -7,6 +7,7 @@ from social import models, forms
 
 # Create your views here.
 
+# Home screen to show posts of friends
 class Wall(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     template_name = 'social/wall.html'
@@ -18,6 +19,7 @@ class Wall(LoginRequiredMixin, ListView):
 
         return models.Post.objects.filter(user__in = friendsIds).order_by('-created_at')
 
+# Profile screen to show my posts.
 class Profile(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
     template_name = 'social/profile.html'
@@ -31,6 +33,7 @@ class Profile(LoginRequiredMixin, ListView):
         data['post_form'] = forms.PostForm
         return data
 
+# Create post
 class Post(View):
     def post(self, request):
         form = forms.PostForm(request.POST, request.FILES)
@@ -41,6 +44,16 @@ class Post(View):
 
         return redirect("/profile")
 
+# Like Post
+class PostLike(View):
+    def get(self, request, pk):
+        models.Like.objects.create(
+            user = request.user,
+            post = models.Post.objects.get(pk=pk)
+        )
+        return redirect("/")
+
+# New Friends
 class Users(ListView):
     context_object_name = 'users'
     template_name = 'social/users.html'
@@ -52,6 +65,7 @@ class Users(ListView):
 
         return models.User.objects.all().exclude(id__in=excludeIds)
 
+# Add Friend
 class AddFriend(View):
     
     def get(self, request, pk):
