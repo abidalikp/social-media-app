@@ -34,7 +34,7 @@ class Profile(LoginRequiredMixin, ListView):
         return data
 
 # Create post
-class Post(View):
+class PostCreate(View):
     def post(self, request):
         form = forms.PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -42,6 +42,12 @@ class Post(View):
             post.user = request.user
             post.save()
 
+        return redirect("/profile")
+
+# Delete Post
+class PostDelete(View):
+    def get(self, request, pk):
+        models.Post.objects.get(pk=pk).delete()
         return redirect("/profile")
 
 # Like Post
@@ -70,11 +76,38 @@ class Users(ListView):
         excludeIds += [friend.person1.id for friend in models.Friend.objects.filter(person2 = self.request.user)]
         excludeIds += [self.request.user.id]
 
-        return models.User.objects.all().exclude(id__in=excludeIds)
+        return models.User.objects.filter(id__in=excludeIds)
+
+    def get_context_data(self, *args, **kwargs):
+        excludeIds = [friend.person2.id for friend in models.Friend.objects.filter(person1 = self.request.user)]
+        excludeIds += [friend.person1.id for friend in models.Friend.objects.filter(person2 = self.request.user)]
+        # Friends
+        friends = models.User.objects.filter(id__in=excludeIds)
+
+        excludeIds += [self.request.user.id]
+        # New Friends
+        nonFriends = models.User.objects.all().exclude(id__in=excludeIds)
+
+        context = {
+            'friends': friends,
+            'nonfriends': nonFriends
+        }
+
+        return context 
 
 # Add Friend
 class AddFriend(View):
     
     def get(self, request, pk):
         models.Friend.objects.create(person1=request.user, person2=models.User.objects.get(pk=pk))
-        return redirect("/")
+        return redirect("/users")
+
+# Remove Friend
+class RemoveFriend(View):
+    
+    def get(self, request, pk):
+        try:
+            models.Friend.objects.get(person1=request.user, person2=models.User.objects.get(pk=pk)).delete()
+        except:
+            models.Friend.objects.get(person2=request.user, person1=models.User.objects.get(pk=pk)).delete()
+        return redirect("/users")

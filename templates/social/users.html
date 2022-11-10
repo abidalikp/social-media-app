@@ -3,7 +3,26 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            {% for user in users %}
+            <h3>My Friends</h3>
+            {% for user in friends %}
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            {{ user.first_name }} {{ user.last_name }}
+                            ({{ user.username}})
+                        </span>
+                        <a class="btn orange darken-4" href="{% url 'removefriend' user.id %}" >Remove Friend</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h3>Add Friends</h3>
+            {% for user in nonfriends %}
             <div class="col s6">
                 {% include 'social/components/user.html' %}
             </div>

@@ -1,28 +1,37 @@
-<div class="card">
-    <div class="card-image">
-        {% if post.image %}
-            <img src="media/{{ post.image }}" style="width: 30%;">
-        {% endif %}
-    </div>
-    <div class="card-content">
+<div class="card row">
+    <div class="card-content col s12 m6">
         <span class="card-title">{{ post.user.first_name }} {{ post.user.last_name }}</span>
         <span class="grey-text"> {{ post.created_at }}</span>
         <p>{{ post.content }}</p>
     </div>
-    <div class="card-action">
-        <a href="{% url 'postlike' post.pk %}">{{ post.likes.count }} Likes</a>
-        <a class="modal-trigger" href="#postModal{{post.id}}">{{ post.comments.count }} Comments</a>
+    <div class="card-image col s12 m6">
+        {% if post.image %}
+            <img src="media/{{ post.image }}" style="width: 50%;">
+        {% endif %}
+    </div>
+    <div class="card-action col s12">
+        <a href="{% url 'postlike' post.pk %}">
+            {% if user in post.likes.users %}
+            <span class="red-text">{{ post.likes.count }} Likes</span>
+            {% else %}
+            <span class="blue-text">{{ post.likes.count }} Likes</span>
+            {% endif %}
+        </a>
+        <a class="modal-trigger blue-text" href="#postModal{{post.id}}">{{ post.comments.count }} Comments</a>
+        {% if post.user == user %}
+        <a class="btn red right" href="{% url 'postdelete' post.pk %}">Delete Post</a>
+        {% endif %}
     </div>
 </div>
 
- <!-- Comments -->
- <div id="postModal{{post.id}}" class="modal">
-   <div class="modal-content">
-     <h4>Comments</h4>
-     <ul class="collection">
+<!-- Comments -->
+<div id="postModal{{post.id}}" class="modal">
+    <div class="modal-content">
+        <h4>Comments</h4>
+        <ul class="collection">
         {% for comment in post.comments.all %}
             <li class="collection-item">{{ comment.user.first_name }} - {{ comment.content }}</li>
         {% endfor %}
-    </ul>
-   </div>
- </div>
+        </ul>
+    </div>
+</div>

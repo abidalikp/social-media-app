@@ -5,8 +5,8 @@
                 <a href="/" class="center brand-logo">Mystery</a>
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'profile' %}">Hello, {{user.first_name}}</a></li>
-                    <li><a href="{% url 'users' %}">Find Friends</a></li>
+                    <li><a href="{% url 'profile' %}">{{user.first_name}}</a></li>
+                    <li><a href="{% url 'users' %}">Friends</a></li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
                     {% else %}
                     <li><a href="{% url 'login' %}">Login</a></li>
