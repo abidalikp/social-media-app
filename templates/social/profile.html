@@ -7,9 +7,16 @@
                 <div class="card">
                     <div class="card-content">
                         <h4>New Post</h4>
+                        <div class="divider"></div>
                         <form action="{% url 'post' %}" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            {{ post_form }}
+                            {% for field in post_form %}
+                                <div class="row">
+                                    <div class="col s12">
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
                             <button class="btn" type="submit">Post</button>
                         </form>
                     </div>
@@ -18,9 +25,10 @@
             <div class="col s6">
                 <div class="card">
                     <div class="card-content">
-                        <span><h1>{{request.user.first_name}} {{request.user.last_name}}</h1></span>
-                        <div class="divider"></div>
-                        <span><h5>{{request.user.email}}</h5></span>
+                        <span><h1>{{user.first_name}} {{user.last_name}}</h1></span>
+                        <div class="divider"></div><br>
+                        <span>Username: {{user}}</span><br>
+                        <span>Email: {{user.email}}</span>
                     </div>
                 </div>
             </div>

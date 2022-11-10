@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import ListView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -47,10 +47,17 @@ class Post(View):
 # Like Post
 class PostLike(View):
     def get(self, request, pk):
-        models.Like.objects.create(
-            user = request.user,
-            post = models.Post.objects.get(pk=pk)
-        )
+        # user and post in like: do nothing.
+        try:
+            models.Like.objects.get(
+                user = request.user,
+                post = models.Post.objects.get(pk=pk)
+            ).delete()
+        except:
+            models.Like.objects.create(
+                user = request.user,
+                post = models.Post.objects.get(pk=pk)
+            )
         return redirect("/")
 
 # New Friends
