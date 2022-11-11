@@ -3,19 +3,15 @@
 {% block content %}
     <div class="container">
         <div class="row">
-            <div class="col s12 m6">
-                <div class="card">
-                    <div class="card-content">
+            <div class="col s12">
+                <div class="card row">
+                    <div class="card-content col s12 m6">
                         <span><h1>{{user.first_name}} {{user.last_name}}</h1></span>
                         <div class="divider"></div><br>
                         <span>Username: {{user}}</span><br>
                         <span>Email: {{user.email}}</span>
                     </div>
-                </div>
-            </div>
-            <div class="col s12 m6">
-                <div class="card">
-                    <div class="card-content">
+                    <div class="card-content col s12 m6">
                         <h4>New Post</h4>
                         <div class="divider"></div>
                         <form action="{% url 'postcreate' %}" method="post" enctype="multipart/form-data">
@@ -30,6 +26,11 @@
                             <button class="btn" type="submit">Post</button>
                         </form>
                     </div>
+                </div>
+            </div>
+            <div class="col s12 m6">
+                <div class="card">
+                    
                 </div>
             </div>
             

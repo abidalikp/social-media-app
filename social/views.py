@@ -19,6 +19,11 @@ class Wall(LoginRequiredMixin, ListView):
 
         return models.Post.objects.filter(user__in = friendsIds).order_by('-created_at')
 
+    def get_context_data(self, **kwargs):
+        data = super().get_context_data(**kwargs)
+        data['comment_form'] = forms.CommentForm
+        return data
+
 # Profile screen to show my posts.
 class Profile(LoginRequiredMixin, ListView):
     context_object_name = 'posts'
@@ -64,6 +69,16 @@ class PostLike(View):
                 user = request.user,
                 post = models.Post.objects.get(pk=pk)
             )
+        return redirect("/")
+
+class PostComment(View):
+    def post(self, request, pk):
+        form = forms.CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.user = request.user
+            comment.post = models.Post.objects.get(pk=pk)
+            comment.save()
         return redirect("/")
 
 # New Friends

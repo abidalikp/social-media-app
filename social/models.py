@@ -24,7 +24,6 @@ class Comment(models.Model):
     post = models.ForeignKey('Post', on_delete = models.CASCADE, related_name='comments')
     user = models.ForeignKey(User, on_delete = models.CASCADE)
 
-
 class Friend(models.Model):
 
     person1 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='person1')

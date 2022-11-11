@@ -28,9 +28,20 @@
 <div id="postModal{{post.id}}" class="modal">
     <div class="modal-content">
         <h4>Comments</h4>
+        <form class="row" action="{% url 'postcomment' post.id %}" method="post">
+            {% csrf_token %}
+            <div class="col s12 m8">
+                {% for field in comment_form %}
+                {{ field }}
+                {% endfor %}
+            </div>
+            <div class="col s12 m4">
+                <button class="btn" type="submit">comment</button>
+            </div>
+        </form>
         <ul class="collection">
         {% for comment in post.comments.all %}
-            <li class="collection-item">{{ comment.user.first_name }} - {{ comment.content }}</li>
+            <li class="collection-item">{{ comment.user.first_name }} <br> {{ comment.content }}</li>
         {% endfor %}
         </ul>
     </div>
