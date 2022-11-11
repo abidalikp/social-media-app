@@ -32,4 +32,12 @@ class Friend(models.Model):
 
     def __str__(self):
         return "{} - {}".format(self.person1.first_name, self.person2.first_name)
+
+class FriendRequest(models.Model):
+
+    requester = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requester')
+    requestee = models.ForeignKey(User, on_delete=models.CASCADE, related_name='requestee')
+
+    def __str__(self):
+        return "{} - {}".format(self.requester.first_name, self.requestee.first_name)
     

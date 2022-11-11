@@ -1,8 +1,31 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <!-- Friend Requests -->
     <div class="container">
         <div class="row">
+            {% if recievedreqs %}
+            <h3>Friend Requests</h3>
+            {% for user in recievedreqs %}
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            {{ user.first_name }} {{ user.last_name }}
+                            ({{ user.username}})
+                        </span>
+                        <a class="btn green darken-4" href="{% url 'friendrequestaccept' user.id %}" >Accept Friend</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- My Friends -->
+    <div class="container">
+        <div class="row">
+            {% if friends %}
             <h3>My Friends</h3>
             {% for user in friends %}
             <div class="col s6">
@@ -12,21 +35,54 @@
                             {{ user.first_name }} {{ user.last_name }}
                             ({{ user.username}})
                         </span>
-                        <a class="btn orange darken-4" href="{% url 'removefriend' user.id %}" >Remove Friend</a>
+                        <a class="btn red darken-4" href="{% url 'removefriend' user.id %}" >Remove Friend</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
+            {% endif %}
         </div>
     </div>
+    <!-- Add Friends -->
     <div class="container">
         <div class="row">
+            {% if nonfriends %}
             <h3>Add Friends</h3>
             {% for user in nonfriends %}
             <div class="col s6">
-                {% include 'social/components/user.html' %}
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            {{ user.first_name }} {{ user.last_name }}
+                            ({{ user.username}})
+                        </span>
+                        <a class="btn teal darken-2" href="{% url 'addfriend' user.id %}" >Add Friend</a>
+                    </div>
+                </div>
             </div>
             {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+    <!-- Sent Requests -->
+    <div class="container">
+        <div class="row">
+            {% if sentreqs %}
+            <h3>Requested Friends</h3>
+            {% for user in sentreqs %}
+            <div class="col s6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title">
+                            {{ user.first_name }} {{ user.last_name }}
+                            ({{ user.username}})
+                        </span>
+                        <a class="btn orange darken-4" href="{% url 'friendrequestcancel' user.id %}" >Cancel Request</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
         </div>
     </div>
 {% endblock %}

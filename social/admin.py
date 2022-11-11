@@ -9,4 +9,5 @@ admin.site.register([
     models.Post,
     models.Like,
     models.Comment,
+    models.FriendRequest,
 ])
