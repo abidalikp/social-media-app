@@ -6,7 +6,7 @@
     </div>
     <div class="card-image col s12 m6">
         {% if post.image %}
-            <img src="media/{{ post.image }}" style="width: 50%;">
+            <img src="media/{{ post.image }}">
         {% endif %}
     </div>
     <div class="card-action col s12">
@@ -19,7 +19,7 @@
         </a>
         <a class="modal-trigger blue-text" href="#postModal{{post.id}}">{{ post.comments.count }} Comments</a>
         {% if post.user == user %}
-        <a class="btn red right" href="{% url 'postdelete' post.pk %}">Delete Post</a>
+        <a class="btn-floating red right" href="{% url 'postdelete' post.pk %}"><i class="material-icons">delete</i></a>
         {% endif %}
     </div>
 </div>
