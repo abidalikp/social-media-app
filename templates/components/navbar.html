@@ -4,7 +4,7 @@
             <div class="col s12">
                 <a href="/" class="center brand-logo">Mystery</a>
                 {% if user.is_authenticated %}
-                    <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+                    <a href="#" data-target="mobile" class="sidenav-trigger">
                         <i class="material-icons">menu</i>
                     </a>
                     <ul class="right hide-on-med-and-down">
@@ -18,8 +18,15 @@
     </div>
 </nav>
 
-<ul id="mobile-demo" class="sidenav">
-    <li><a href="{% url 'profile' %}">{{user.first_name}} {{user.last_name}}</a></li>
-    <li><a href="{% url 'users' %}">Friends</a></li>
-    <li><a href="{% url 'logout' %}">Logout</a></li>
+<ul id="mobile" class="sidenav collection">
+    <li><div class="user-view">
+        <div class="background black">
+          <!-- <img src="media/{{ user.profile.get.cover_pic }}"> -->
+        </div>
+        <a href="{% url 'profile' %}"><img class="circle" src="media/{{ user.profile.get.profile_pic }}"></a>
+        <a href="{% url 'profile' %}"><span class="white-text name">{{user.first_name}} {{user.last_name}}</span></a>
+        <a href="{% url 'profile' %}"><span class="white-text email">{{user.email}}</span></a>
+    </div></li>
+    <li class="collection-item black-text"><a href="{% url 'users' %}">Friends</a></li>
+    <li class="collection-item"><a class="red-text" href="{% url 'logout' %}">Logout</a></li>
 </ul>

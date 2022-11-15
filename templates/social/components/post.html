@@ -13,7 +13,7 @@
         {% if post.user != user %}
         <a href="{% url 'postlike' post.pk %}">
             {% if post.id in liked_posts %}
-            <i class="small material-icons red-text">favorite</i>
+            <i class="small material-icons red-text">favorite_</i>
             {% else %}
             <i class="small material-icons red-text">favorite_outlined</i>
             {% endif %}

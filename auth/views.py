@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 
 from auth.forms import SignupForm
+from social.models import Profile
 
 # Create your views here.
 
@@ -26,6 +27,7 @@ class Signup(View):
         if form.is_valid():
             user = form.save()
             login(request, user)
+            Profile.objects.create(user=request.user)
             return redirect('/')
         context = {
             'form': form

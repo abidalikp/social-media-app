@@ -10,4 +10,5 @@ admin.site.register([
     models.Like,
     models.Comment,
     models.FriendRequest,
+    models.Profile,
 ])

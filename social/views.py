@@ -38,7 +38,13 @@ class Profile(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
+        try:
+            profile = models.Profile.objects.get(user=self.request.user)
+        except:
+            profile = models.Profile.objects.create(user=self.request.user)
         data['post_form'] = forms.PostForm
+        data['profile_form'] = forms.ProfileForm
+        data['profile'] = profile
         return data
 
 # Create post

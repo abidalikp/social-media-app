@@ -5,12 +5,23 @@
         <div class="row">
             <div class="col s12">
                 <div class="card row">
-                    <div class="card-content col s12 m6">
-                        <span><h1>{{user.first_name}} {{user.last_name}}</h1></span>
+                    {% if profile.profile_pic %}
+                    <div class="card-image col s12 m3">
+                        <img src="media/{{ profile.profile_pic }}">
+                    </div>
+                    {% endif %}
+                    <div class="card-content col s12 m9">
+                        <span><h3>{{user.first_name}} {{user.last_name}}</h3></span>
                         <div class="divider"></div><br>
                         <span>Username: {{user}}</span><br>
                         <span>Email: {{user.email}}</span><br>
+                        <!-- <span>Gender: {{profile.gender}}</span><br> -->
                     </div>
+                    
+                </div>
+            </div>
+            <div class="col s12">
+                <div class="card row">
                     <div class="card-content col s12 m6">
                         <h4>New Post</h4>
                         <div class="divider"></div>
@@ -26,11 +37,6 @@
                             <button class="btn" type="submit">Post</button>
                         </form>
                     </div>
-                </div>
-            </div>
-            <div class="col s12 m6">
-                <div class="card">
-                    
                 </div>
             </div>
             
