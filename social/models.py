@@ -1,5 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
+from uuid import uuid4
+
+# Functions for models.
+
+def upload_to(instance, filename):
+    ext = filename.split('.')[-1]
+    return '%s/%s.%s' % (instance.user.username, uuid4().hex, ext)
 
 # Create your models here.
 
@@ -8,10 +15,14 @@ class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now = True)
     content = models.TextField()
-    image = models.ImageField(blank = True)
+    image = models.ImageField(blank = True, upload_to=upload_to)
 
     def __str__(self):
         return '{} - {}'.format(self.user.first_name, self.content[:50])
+
+    def delete(self):
+        self.image.delete()
+        super().delete()
 
 class Like(models.Model):
 

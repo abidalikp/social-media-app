@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.views.generic import ListView
+from django.views.generic.edit import UpdateView
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -22,6 +23,8 @@ class Wall(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
         data['comment_form'] = forms.CommentForm
+        likedPostIds = [likes.post.id for likes in models.Like.objects.filter(user=self.request.user)]
+        data['liked_posts'] = likedPostIds
         return data
 
 # Profile screen to show my posts.
