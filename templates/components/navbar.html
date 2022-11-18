@@ -21,9 +21,9 @@
 <ul id="mobile" class="sidenav collection">
     <li><div class="user-view">
         <div class="background black">
-          <!-- <img src="media/{{ user.profile.get.cover_pic }}"> -->
+          <!-- <img src="{{ user.profile.get.cover_pic.url }}"> -->
         </div>
-        <a href="{% url 'profile' %}"><img class="circle" src="media/{{ user.profile.get.profile_pic }}"></a>
+        <a href="{% url 'profile' %}"><img class="circle" src="{{ user.profile.get.profile_pic.url }}"></a>
         <a href="{% url 'profile' %}"><span class="white-text name">{{user.first_name}} {{user.last_name}}</span></a>
         <a href="{% url 'profile' %}"><span class="white-text email">{{user.email}}</span></a>
     </div></li>

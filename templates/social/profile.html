@@ -7,7 +7,7 @@
                 <div class="card row">
                     {% if profile.profile_pic %}
                     <div class="card-image col s12 m3">
-                        <img src="media/{{ profile.profile_pic }}">
+                        <img src="{{ profile.profile_pic.url }}">
                     </div>
                     {% endif %}
                     <div class="card-content col s12 m9">
